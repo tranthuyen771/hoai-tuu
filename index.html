@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoài Tự — Truyền thuyết hậu chiến Quảng Nam – Đà Nẵng</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FBF6EE;font-family:'Times New Roman',Times,serif;color:#2C1F0E;min-height:100vh}
+  :root{
+    --earth:#6B4226;--earth-light:#F5ECD7;--earth-mid:#C8955A;
+    --moss:#4A5E3A;--moss-light:#E8EFE0;--gold:#A07830;--gold-light:#FAF0D7;
+    --ink:#2C1F0E;--ink-soft:#5C4033;--tnr:'Times New Roman',Times,serif;
+    --radius-md:8px;--radius-lg:12px
+  }
+  .container{max-width:680px;margin:0 auto;padding:0 1.25rem 3rem}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1.5px solid var(--earth-mid)}
+  .logo-txt{font-size:12px;font-weight:500;color:var(--earth);letter-spacing:0.06em;text-transform:uppercase;max-width:340px;line-height:1.5}
+  .lang-row{display:flex;gap:6px;flex-shrink:0}
+  .lang-btn{font-size:12px;padding:4px 14px;border-radius:20px;border:0.5px solid var(--earth-mid);background:transparent;color:var(--ink-soft);cursor:pointer;font-family:var(--tnr)}
+  .lang-btn.active{background:var(--earth-light);color:var(--earth);border-color:var(--earth)}
+  .hero-band{background:var(--earth-light);border:0.5px solid #D4B896;border-radius:var(--radius-lg);padding:2rem 1.5rem 1.5rem;margin:1.5rem 0;text-align:center}
+  .ornament{font-size:20px;color:var(--earth-mid);display:block;margin-bottom:10px;letter-spacing:6px}
+  .hero-band h1{font-size:18px;font-weight:bold;color:var(--earth);line-height:1.6;margin-bottom:1.25rem}
+  .mission-block{border-top:0.5px solid #D4B896;border-bottom:0.5px solid #D4B896;padding:1rem 0;margin:0 auto 1.25rem;max-width:460px}
+  .mission-title{font-size:21px;font-weight:bold;color:var(--earth);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px}
+  .mission-sub{font-size:13px;color:var(--ink-soft);font-style:italic;line-height:1.7}
+  .mission-main{font-size:14px;color:var(--ink);font-style:italic;line-height:1.8;margin-top:4px}
+  .team-block{padding-top:1rem}
+  .team-label{font-size:11px;color:var(--earth-mid);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+  .team-names{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  .name-pill{font-size:12px;padding:3px 12px;border-radius:20px;background:white;border:0.5px solid #D4B896;color:var(--ink-soft)}
+  .divider{display:flex;align-items:center;gap:12px;margin:1.25rem 0}
+  .divider-line{flex:1;height:0.5px;background:var(--earth-mid);opacity:0.35}
+  .divider-mark{font-size:12px;color:var(--earth-mid);letter-spacing:4px}
+  .card{background:white;border:0.5px solid #D4B896;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.25rem}
+  .card-header{display:flex;align-items:center;gap:12px;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:0.5px solid #E8D5BC}
+  .card-icon{width:36px;height:36px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .icon-mic{background:#FAF0D7;color:#A07830}
+  .icon-pen{background:var(--moss-light);color:var(--moss)}
+  .icon-vid{background:#F5ECD7;color:var(--earth)}
+  .card-title{font-size:15px;font-weight:bold;color:var(--earth)}
+  .card-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+  .rec-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .rec-btn{display:flex;align-items:center;gap:8px;padding:7px 18px;border-radius:20px;border:0.5px solid var(--earth-mid);background:transparent;color:var(--ink-soft);font-size:13px;cursor:pointer;font-family:var(--tnr)}
+  .rec-btn.on{background:var(--earth-light);border-color:var(--earth);color:var(--earth)}
+  .rec-timer{font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;display:none}
+  .rec-status{font-size:12px;color:var(--moss);margin-top:6px}
+  audio{width:100%;margin-top:10px;height:36px;display:none}
+  textarea{width:100%;min-height:120px;padding:10px 12px;font-size:14px;font-family:var(--tnr);border:0.5px solid #D4B896;border-radius:var(--radius-md);background:var(--gold-light);color:var(--ink);resize:vertical;line-height:1.7}
+  textarea:focus{outline:none;border-color:var(--earth-mid)}
+  .char-count{font-size:11px;color:var(--ink-soft);text-align:right;margin-top:4px;opacity:0.7}
+  .drop-zone{border:1px dashed var(--earth-mid);border-radius:var(--radius-md);padding:1.5rem;text-align:center;cursor:pointer;background:var(--earth-light);transition:background 0.15s}
+  .drop-zone:hover{background:#EDE0C8}
+  .drop-zone .drop-icon{font-size:32px;display:block;margin-bottom:6px}
+  .drop-zone p{font-size:13px;color:var(--ink-soft)}
+  .drop-zone small{font-size:11px;color:var(--ink-soft);opacity:0.7}
+  video{width:100%;border-radius:var(--radius-md);margin-top:8px;max-height:220px;background:#1a1008;display:none}
+  .submit-row{text-align:center;margin:1.75rem 0 1rem}
+  .submit-btn{padding:11px 40px;background:var(--earth);border:none;border-radius:24px;font-size:15px;font-weight:bold;color:#FAF0D7;cursor:pointer;font-family:var(--tnr);letter-spacing:0.04em}
+  .submit-btn:hover{background:var(--ink-soft)}
+  .submit-btn:disabled{opacity:0.6;cursor:not-allowed}
+  .progress{display:none;font-size:13px;color:var(--gold);text-align:center;margin-top:8px;font-style:italic}
+  .success{display:none;background:var(--moss-light);border:0.5px solid #A0C070;border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--moss);margin-top:12px;text-align:center}
+  .error-msg{display:none;background:#FCEBEB;border:0.5px solid #F09595;border-radius:var(--radius-md);padding:12px 16px;font-size:13px;color:#A32D2D;margin-top:10px;text-align:center}
+  .qr-section{border-top:0.5px solid #D4B896;padding-top:1.5rem;margin-top:0.5rem;text-align:center}
+  .qr-label{font-size:12px;color:var(--ink-soft);margin-bottom:10px}
+  .qr-frame{display:inline-block;padding:10px;background:white;border:0.5px solid #D4B896;border-radius:var(--radius-md)}
+  .footer-row{margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid #E8D5BC;text-align:center}
+  .footer-note{font-size:11px;color:var(--ink-soft);opacity:0.6}
+  @media(max-width:480px){
+    .top-bar{flex-direction:column;gap:10px;align-items:flex-start}
+    .hero-band h1{font-size:15px}
+    .mission-title{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <span class="logo-txt" id="logo-txt">Ký ức tập thể & Folklore đương đại · Quảng Nam – Đà Nẵng</span>
+    <div class="lang-row">
+      <button class="lang-btn active" onclick="setLang('vi')">Tiếng Việt</button>
+      <button class="lang-btn" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <span class="ornament">✦ ✦ ✦</span>
+    <h1 id="hero-title">Ký ức tập thể và Folklore đương đại:<br>Nghiên cứu trường hợp truyền thuyết hậu chiến<br>tại Quảng Nam – Đà Nẵng</h1>
+    <div class="mission-block">
+      <p class="mission-title" id="mission-title">Hoài Tự</p>
+      <p class="mission-sub" id="mission-sub">khi việc kể chuyện tưởng như bất khả</p>
+      <p class="mission-main" id="mission-main">Truyền thuyết hậu chiến như một thực hành kể chuyện cộng đồng</p>
+    </div>
+    <div class="team-block">
+      <p class="team-label" id="team-label">Nhóm nghiên cứu</p>
+      <div class="team-names">
+        <span class="name-pill">Trần Văn Khánh Dương</span>
+        <span class="name-pill">Vũ Minh Huyền</span>
+        <span class="name-pill">Trần Thành Tài</span>
+        <span class="name-pill">Dương Vũ Như Quỳnh</span>
+        <span class="name-pill">Bùi Thị Phương Thảo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-mark">✦ ✦</span><div class="divider-line"></div></div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-mic">🎙️</div>
+      <div>
+        <div class="card-title" id="s1-title">Thu âm cảm nghĩ</div>
+        <div class="card-sub" id="s1-sub">Kể lại câu chuyện bằng giọng nói của bạn</div>
+      </div>
+    </div>
+    <div class="rec-row">
+      <button class="rec-btn" id="rec-btn" onclick="toggleRec()">
+        🎤 <span id="rec-label">Bắt đầu ghi âm</span>
+      </button>
+      <span class="rec-timer" id="rec-timer">00:00</span>
+    </div>
+    <div class="rec-status" id="rec-status"></div>
+    <audio id="audio-out" controls></audio>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-pen">✍️</div>
+      <div>
+        <div class="card-title" id="s2-title">Hộp thư suy ngẫm</div>
+        <div class="card-sub" id="s2-sub">Viết xuống những điều bạn cảm nhận và suy ngẫm</div>
+      </div>
+    </div>
+    <textarea id="txt-area" placeholder="Chia sẻ cảm xúc, suy nghĩ của bạn về những câu chuyện truyền thuyết hậu chiến này..." oninput="countChar()"></textarea>
+    <div class="char-count"><span id="char-n">0</span> <span id="char-lbl">ký tự</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-vid">📹</div>
+      <div>
+        <div class="card-title" id="s3-title">Video của bạn</div>
+        <div class="card-sub" id="s3-sub">Quay và upload video kể chuyện cộng đồng</div>
+      </div>
+    </div>
+    <div class="drop-zone" onclick="document.getElementById('vid-in').click()" ondragover="event.preventDefault()" ondrop="onDrop(event)">
+      <span class="drop-icon">☁️</span>
+      <p id="drop-txt">Nhấn để chọn video hoặc kéo thả vào đây</p>
+      <small id="drop-sm">MP4, MOV — tối đa 500MB</small>
+    </div>
+    <input type="file" id="vid-in" accept="video/*" style="display:none" onchange="onVid(this)">
+    <video id="vid-out" controls></video>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" id="submit-btn" onclick="doSubmit()">
+      ✉ <span id="sub-lbl">Gửi phản hồi</span>
+    </button>
+  </div>
+  <div class="progress" id="progress-msg">Đang gửi dữ liệu, vui lòng chờ...</div>
+  <div class="success" id="success-box">
+    ✓ <span id="success-txt">Cảm ơn bạn! Phản hồi của bạn đã được lưu vào hệ thống.</span>
+  </div>
+  <div class="error-msg" id="error-box">
+    ✗ <span id="error-txt">Có lỗi xảy ra. Vui lòng thử lại.</span>
+  </div>
+
+  <div class="qr-section">
+    <p class="qr-label" id="qr-lbl">Quét mã QR để truy cập trang trên điện thoại</p>
+    <div class="qr-frame"><div id="qr-cv"></div></div>
+  </div>
+
+  <div class="footer-row">
+    <p class="footer-note" id="footer-note">Nghiên cứu khoa học · Folklore học · Quảng Nam – Đà Nẵng</p>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// ĐÁN URL GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY SAU KHI DEPLOY
+// ============================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzxD4cPw21ouisaVbModZHK4K8S-egowxW3jr2wLSA6o339cpw3915xww4ZVwcr_356/exec';
+
+const T={
+  vi:{logo:'Ký ức tập thể & Folklore đương đại · Quảng Nam – Đà Nẵng',heroTitle:'Ký ức tập thể và Folklore đương đại:<br>Nghiên cứu trường hợp truyền thuyết hậu chiến<br>tại Quảng Nam – Đà Nẵng',missionTitle:'Hoài Tự',missionSub:'khi việc kể chuyện tưởng như bất khả',missionMain:'Truyền thuyết hậu chiến như một thực hành kể chuyện cộng đồng',teamLabel:'Nhóm nghiên cứu',s1:'Thu âm cảm nghĩ',s1s:'Kể lại câu chuyện bằng giọng nói của bạn',s2:'Hộp thư suy ngẫm',s2s:'Viết xuống những điều bạn cảm nhận và suy ngẫm',s3:'Video của bạn',s3s:'Quay và upload video kể chuyện cộng đồng',recStart:'Bắt đầu ghi âm',recStop:'Dừng ghi âm',recDone:'Ghi âm hoàn tất. Nghe lại bên dưới.',ph:'Chia sẻ cảm xúc, suy nghĩ của bạn về những câu chuyện truyền thuyết hậu chiến này...',charLbl:'ký tự',dropTxt:'Nhấn để chọn video hoặc kéo thả vào đây',dropSm:'MP4, MOV — tối đa 500MB',subLbl:'Gửi phản hồi',sending:'Đang gửi dữ liệu, vui lòng chờ...',successTxt:'Cảm ơn bạn! Phản hồi của bạn đã được lưu vào hệ thống.',errorTxt:'Có lỗi xảy ra. Vui lòng thử lại.',qrLbl:'Quét mã QR để truy cập trang trên điện thoại',footer:'Nghiên cứu khoa học · Folklore học · Quảng Nam – Đà Nẵng',recErr:'Không thể truy cập micro. Vui lòng cấp quyền.'},
+  en:{logo:'Collective Memory & Contemporary Folklore · Quảng Nam – Đà Nẵng',heroTitle:'Collective Memory and Contemporary Folklore:<br>A case study of post-war legends<br>in Quảng Nam – Đà Nẵng',missionTitle:'Hoài Tự',missionSub:'when storytelling seems impossible',missionMain:'Post-war legends as a community storytelling practice',teamLabel:'Research team',s1:'Record your thoughts',s1s:'Tell your story in your own voice',s2:'Reflection inbox',s2s:'Write down what you feel and reflect upon',s3:'Your video',s3s:'Record and upload a community storytelling video',recStart:'Start recording',recStop:'Stop recording',recDone:'Recording saved. Listen below.',ph:'Share your feelings and thoughts about these post-war legends...',charLbl:'characters',dropTxt:'Click to select a video or drag & drop',dropSm:'MP4, MOV — max 500MB',subLbl:'Submit response',sending:'Sending data, please wait...',successTxt:'Thank you! Your response has been saved.',errorTxt:'An error occurred. Please try again.',qrLbl:'Scan QR code to open on your phone',footer:'Scientific research · Folklore studies · Quảng Nam – Đà Nẵng',recErr:'Cannot access microphone. Please grant permission.'}
+};
+
+let lang='vi',isRec=false,mr,chunks=[],iv,sec=0,audioBlob=null,videoFile=null;
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().includes(l==='vi'?'Việt':'English')));
+  const t=T[l];
+  document.getElementById('logo-txt').textContent=t.logo;
+  document.getElementById('hero-title').innerHTML=t.heroTitle;
+  document.getElementById('mission-title').textContent=t.missionTitle;
+  document.getElementById('mission-sub').textContent=t.missionSub;
+  document.getElementById('mission-main').textContent=t.missionMain;
+  document.getElementById('team-label').textContent=t.teamLabel;
+  document.getElementById('s1-title').textContent=t.s1;
+  document.getElementById('s1-sub').textContent=t.s1s;
+  document.getElementById('s2-title').textContent=t.s2;
+  document.getElementById('s2-sub').textContent=t.s2s;
+  document.getElementById('s3-title').textContent=t.s3;
+  document.getElementById('s3-sub').textContent=t.s3s;
+  document.getElementById('rec-label').textContent=isRec?t.recStop:t.recStart;
+  document.getElementById('txt-area').placeholder=t.ph;
+  document.getElementById('char-lbl').textContent=t.charLbl;
+  document.getElementById('drop-txt').textContent=t.dropTxt;
+  document.getElementById('drop-sm').textContent=t.dropSm;
+  document.getElementById('sub-lbl').textContent=t.subLbl;
+  document.getElementById('success-txt').textContent=t.successTxt;
+  document.getElementById('error-txt').textContent=t.errorTxt;
+  document.getElementById('qr-lbl').textContent=t.qrLbl;
+  document.getElementById('footer-note').textContent=t.footer;
+}
+
+async function toggleRec(){
+  const t=T[lang];
+  if(!isRec){
+    try{
+      const s=await navigator.mediaDevices.getUserMedia({audio:true});
+      mr=new MediaRecorder(s);chunks=[];
+      mr.ondataavailable=e=>chunks.push(e.data);
+      mr.onstop=()=>{
+        audioBlob=new Blob(chunks,{type:'audio/webm'});
+        const u=URL.createObjectURL(audioBlob);
+        const a=document.getElementById('audio-out');
+        a.src=u;a.style.display='block';
+        document.getElementById('rec-status').textContent=t.recDone;
+        s.getTracks().forEach(tr=>tr.stop());
+      };
+      mr.start();isRec=true;sec=0;
+      document.getElementById('rec-btn').classList.add('on');
+      document.getElementById('rec-label').textContent=t.recStop;
+      document.getElementById('rec-timer').style.display='inline';
+      iv=setInterval(()=>{sec++;const m=String(Math.floor(sec/60)).padStart(2,'0'),s2=String(sec%60).padStart(2,'0');document.getElementById('rec-timer').textContent=m+':'+s2;},1000);
+    }catch(e){document.getElementById('rec-status').textContent=t.recErr;}
+  }else{
+    mr.stop();isRec=false;clearInterval(iv);
+    document.getElementById('rec-btn').classList.remove('on');
+    document.getElementById('rec-label').textContent=T[lang].recStart;
+    document.getElementById('rec-timer').style.display='none';
+  }
+}
+
+function countChar(){document.getElementById('char-n').textContent=document.getElementById('txt-area').value.length;}
+
+function onVid(inp){
+  videoFile=inp.files[0];if(!videoFile)return;
+  const v=document.getElementById('vid-out');
+  v.src=URL.createObjectURL(videoFile);v.style.display='block';
+  document.getElementById('drop-txt').textContent=videoFile.name;
+}
+
+function onDrop(e){
+  e.preventDefault();
+  const f=e.dataTransfer.files[0];
+  if(f&&f.type.startsWith('video/')){
+    videoFile=f;
+    const v=document.getElementById('vid-out');
+    v.src=URL.createObjectURL(f);v.style.display='block';
+    document.getElementById('drop-txt').textContent=f.name;
+  }
+}
+
+// Chuyển Blob sang base64
+function blobToBase64(blob){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result.split(',')[1]);
+    r.onerror=rej;
+    r.readAsDataURL(blob);
+  });
+}
+
+async function doSubmit(){
+  const t=T[lang];
+  const text=document.getElementById('txt-area').value.trim();
+  const btn=document.getElementById('submit-btn');
+  const progress=document.getElementById('progress-msg');
+  const successBox=document.getElementById('success-box');
+  const errorBox=document.getElementById('error-box');
+
+  // Ẩn thông báo cũ
+  successBox.style.display='none';
+  errorBox.style.display='none';
+
+  // Kiểm tra có gì để gửi không
+  if(!text && !audioBlob && !videoFile){
+    alert(lang==='vi'?'Vui lòng nhập nội dung, ghi âm hoặc chọn video trước khi gửi.':'Please add text, audio, or video before submitting.');
+    return;
+  }
+
+  btn.disabled=true;
+  progress.style.display='block';
+  progress.textContent=t.sending;
+
+  try{
+    // Gửi qua GET params để tránh CORS
+    function sendGet(params){
+      return new Promise((resolve)=>{
+        const url=SCRIPT_URL+'?'+Object.keys(params).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(params[k])).join('&');
+        const img=new Image();
+        img.onload=img.onerror=()=>resolve();
+        img.src=url;
+        setTimeout(resolve,3000);
+      });
+    }
+
+    const promises=[];
+
+    // Gửi chữ viết
+    if(text){
+      promises.push(sendGet({type:'text',text:text,lang:lang}));
+    }
+
+    // Gửi audio
+    if(audioBlob){
+      const ts=new Date().toISOString().replace(/[:.]/g,'-');
+      promises.push(sendGet({type:'audio',fileName:'audio-'+ts+'.webm',note:'Audio recorded'}));
+    }
+
+    // Gửi video
+    if(videoFile){
+      promises.push(sendGet({type:'video',fileName:videoFile.name,note:'Video uploaded'}));
+    }
+
+    await Promise.all(promises);
+    progress.style.display='none';
+    successBox.style.display='block';
+
+    // Reset form
+    document.getElementById('txt-area').value='';
+    document.getElementById('char-n').textContent='0';
+    audioBlob=null;videoFile=null;
+    document.getElementById('audio-out').style.display='none';
+    document.getElementById('vid-out').style.display='none';
+    document.getElementById('drop-txt').textContent=t.dropTxt;
+
+  }catch(err){
+    progress.style.display='none';
+    errorBox.style.display='block';
+    console.error(err);
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+window.addEventListener('load',()=>{
+  try{
+    new QRCode(document.getElementById('qr-cv'),{
+      text:window.location.href,
+      width:120,height:120,
+      colorDark:'#6B4226',colorLight:'#ffffff',
+      correctLevel:QRCode.CorrectLevel.M
+    });
+  }catch(e){}
+});
+</script>
+</body>
+</html>
